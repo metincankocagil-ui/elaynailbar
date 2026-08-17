@@ -1,0 +1,6 @@
+import { NextResponse } from 'next/server'; import { promises as fs } from 'fs'; import path from 'path'; import { isAdmin } from '@/lib/admin';
+const file=path.join(process.cwd(),'data','reviews.json');
+async function read(){return JSON.parse(await fs.readFile(file,'utf8'));}
+export async function GET(){if(!await isAdmin())return NextResponse.json({error:'Yetkisiz.'},{status:401});return NextResponse.json(await read());}
+export async function PATCH(request:Request){if(!await isAdmin())return NextResponse.json({error:'Yetkisiz.'},{status:401});const {id,status}=await request.json();if(!['approved','rejected'].includes(status))return NextResponse.json({error:'Geçersiz durum.'},{status:400});const items=await read();const item=items.find((x:{id:string})=>x.id===id);if(!item)return NextResponse.json({error:'Yorum bulunamadı.'},{status:404});item.status=status;await fs.writeFile(file,JSON.stringify(items,null,2));return NextResponse.json(item);}
+export async function DELETE(request:Request){if(!await isAdmin())return NextResponse.json({error:'Yetkisiz.'},{status:401});const {id}=await request.json();const items=await read();await fs.writeFile(file,JSON.stringify(items.filter((x:{id:string})=>x.id!==id),null,2),'utf8');return NextResponse.json({ok:true});}

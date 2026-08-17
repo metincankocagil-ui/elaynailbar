@@ -1,0 +1,3 @@
+import { NextResponse } from 'next/server'; import { sessionToken, validPassword } from '@/lib/admin';
+export async function POST(request:Request){const {password}=await request.json();if(!validPassword(String(password||'')))return NextResponse.json({error:'Parola hatalı.'},{status:401});const response=NextResponse.json({ok:true});response.cookies.set('elay_admin',sessionToken(),{httpOnly:true,sameSite:'strict',secure:process.env.NODE_ENV==='production',path:'/',maxAge:60*60*8});return response;}
+export async function DELETE(){const response=NextResponse.json({ok:true});response.cookies.set('elay_admin','',{httpOnly:true,path:'/',maxAge:0});return response;}

@@ -1,0 +1,73 @@
+[
+  {
+    "id": "e01fd09e-8b00-43ef-a874-d048c65a6715",
+    "name": "Metincan Kocagil",
+    "service": "Protez Tırnak",
+    "text": "MEMNUN KALDIM FAKAT BİRAZ YAVAŞLAR.",
+    "rating": 4,
+    "createdAt": "2026-08-13T17:44:22.177Z"
+  },
+  {
+    "id": "seed-1",
+    "text": "Protez tırnaklarım üç haftayı geçtiği halde formunu korudu. Özellikle tırnak yapımı dinleyip ona göre işlem yapılması çok hoşuma gitti.",
+    "name": "Derya K.",
+    "service": "Protez Tırnak",
+    "rating": 5
+  },
+  {
+    "id": "seed-2",
+    "text": "İlk kez kuru manikür yaptırdım. Kütiküllerim çok hassas olmasına rağmen hiçbir rahatsızlık yaşamadım; sonuç gerçekten tertemizdi.",
+    "name": "Selin A.",
+    "service": "Kuru Manikür",
+    "rating": 5
+  },
+  {
+    "id": "seed-3",
+    "text": "Renk seçerken acele ettirmediler ve tenime en uygun tonu beraber bulduk. Kalıcı ojem iki haftadır ilk günkü parlaklığında.",
+    "name": "Ece T.",
+    "service": "Kalıcı Oje",
+    "rating": 4
+  },
+  {
+    "id": "seed-4",
+    "text": "Stüdyo sakin, temiz ve çok özenli. Randevu saatimde başladılar, yapılan her aşamayı da açıklamaları güven verdi.",
+    "name": "Gizem Y.",
+    "service": "Kalıcı Oje",
+    "rating": 5
+  },
+  {
+    "id": "seed-5",
+    "text": "Tırnaklarım ince olduğu için protez konusunda çekinceliydim. Çok doğal ve hafif bir sonuç çıktı; günlük hayatımda hiç zorlanmadım.",
+    "name": "Buse Ç.",
+    "service": "Protez Tırnak",
+    "rating": 4
+  },
+  {
+    "id": "seed-6",
+    "text": "Gösterdiğim tasarımı birebir kopyalamak yerine elime göre yeniden yorumladılar. İnce çizgiler ve detaylar beklediğimden de güzel oldu.",
+    "name": "İrem S.",
+    "service": "Nail Art",
+    "rating": 5
+  },
+  {
+    "id": "seed-7",
+    "text": "Pedikür sonrası sadece görünüm değil, rahatlık açısından da büyük fark hissettim. İşlem boyunca hijyene gösterilen özen çok netti.",
+    "name": "Melis Ö.",
+    "service": "Spa Pedikür",
+    "rating": 4
+  },
+  {
+    "id": "seed-8",
+    "text": "Kırılan tırnağımı diğerlerinden ayırt edilmeyecek kadar doğal onardılar. Hızlı ama kesinlikle özensiz olmayan bir hizmetti.",
+    "name": "Cansu B.",
+    "service": "Bakım & Güçlendirme",
+    "rating": 3
+  },
+  {
+    "id": "seed-9",
+    "text": "Minimal bir French istemiştim; çizgilerin inceliği ve tüm tırnaklardaki eşitlik kusursuz. Tekrar geleceğim bir yer oldu.",
+    "name": "Zeynep D.",
+    "service": "Modern French",
+    "rating": 5
+  }
+]

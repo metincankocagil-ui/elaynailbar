@@ -1,0 +1,2 @@
+.statement{padding:76px 24px}.statement p{font-size:clamp(30px,3.3vw,48px);line-height:1.2}
+@media(max-width:850px){.statement{padding:46px 22px}.statement p{font-size:clamp(25px,7.5vw,31px);line-height:1.22}}
