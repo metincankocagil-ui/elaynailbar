@@ -1,5 +1,6 @@
 const mapsUrl = 'https://maps.app.goo.gl/obLueTsnoeQAs3Xk8';
 const embedUrl = 'https://www.google.com/maps?q=41.01107,28.8073456&z=18&output=embed';
+const whatsappUrl = 'https://wa.me/905316138105?text=' + encodeURIComponent('Merhaba Elay Nail Bar, randevu hakkında bilgi almak istiyorum.');
 
 export default function Contact() {
   return <div className="page contact">
@@ -14,13 +15,14 @@ export default function Contact() {
       <div className="social-block">
         <b>SOSYAL MEDYA</b>
         <div className="social-links">
+          <a className="whatsapp-social" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Elay Nail Bar WhatsApp hattı"><span className="social-icon">◔</span><span><strong>WhatsApp</strong><small>Hızlı iletişim</small></span><i>↗</i></a>
           <a href="https://www.instagram.com/elaynailbar_/" target="_blank" rel="noreferrer" aria-label="Elay Nail Bar Instagram hesabı"><span className="social-icon">◎</span><span><strong>Instagram</strong><small>@elaynailbar_</small></span><i>↗</i></a>
           <a href="https://www.tiktok.com/@elaynailbar" target="_blank" rel="noreferrer" aria-label="Elay Nail Bar TikTok hesabı"><span className="social-icon">♪</span><span><strong>TikTok</strong><small>@elaynailbar</small></span><i>↗</i></a>
           <div className="social-disabled" aria-disabled="true"><span className="social-icon">𝕏</span><span><strong>X</strong><small>@elaynailbar</small></span><i>YAKINDA</i></div>
         </div>
       </div>
       <div className="contact-actions">
-        <a className="button" href="https://wa.me/905316138105" target="_blank" rel="noreferrer">WHATSAPP RANDEVU</a>
+        <a className="button" href={whatsappUrl} target="_blank" rel="noreferrer">WHATSAPP RANDEVU</a>
         <a className="direction-link" href={mapsUrl} target="_blank" rel="noreferrer">YOL TARİFİ AL <span>↗</span></a>
       </div>
     </section>

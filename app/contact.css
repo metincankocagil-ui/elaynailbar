@@ -4,3 +4,4 @@
 @media(max-width:1100px){.social-links{grid-template-columns:1fr}}
 @media(max-width:850px){.social-block{margin-bottom:35px}.social-links{grid-template-columns:repeat(3,1fr)}.social-links>a,.social-disabled{display:grid;justify-items:center;text-align:center;padding:14px 6px}.social-links i,.social-disabled i{margin:3px 0 0}.social-links small,.social-disabled small{max-width:88px}}
 @media(max-width:390px){.social-links{grid-template-columns:1fr}.social-links>a,.social-disabled{display:flex;text-align:left;justify-items:initial;padding:13px}.social-links i,.social-disabled i{margin-left:auto}}
+.social-links{grid-template-columns:repeat(2,minmax(0,1fr))}.social-links .whatsapp-social{background:#eef3e9;border-color:#bdccb3}.social-links .whatsapp-social .social-icon{background:#526847}.social-links .whatsapp-social:hover{background:#e1ecd9;border-color:#839c75}@media(max-width:390px){.social-links{grid-template-columns:1fr}}
