@@ -61,3 +61,6 @@
 @media(min-width:851px){
   .service-options{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+/* The final half-hour slot in each period fills its own complete row. */
+.slot-group>div>button:last-child{grid-column:1/-1}
