@@ -4,3 +4,16 @@
 .design-gallery.section{padding-top:58px}.design-gallery .page-title{margin-bottom:30px}.design-gallery .page-title i{margin-bottom:16px}.design-gallery .page-title h1{font-size:clamp(42px,5vw,62px);margin-bottom:10px}.design-gallery .page-title p{font-size:14px;margin-bottom:0}.design-gallery .gallery-guide{padding:14px 0;margin-bottom:24px}
 
 @media(max-width:650px){.design-gallery.section{padding-top:34px}.design-gallery .page-title{margin-bottom:22px}.design-gallery .page-title i{margin-bottom:12px}.design-gallery .page-title h1{font-size:36px;margin-bottom:8px}.design-gallery .page-title p{font-size:12px;line-height:1.45}.design-gallery .gallery-guide{padding:11px 0;margin-bottom:18px}}
+
+@media(max-width:650px){
+  .design-grid>button{
+    -webkit-appearance:none;
+    appearance:none;
+    color:#7a5733!important;
+    -webkit-text-fill-color:#7a5733!important;
+  }
+  .design-grid>button b{
+    color:#7a5733!important;
+    -webkit-text-fill-color:#7a5733!important;
+  }
+}

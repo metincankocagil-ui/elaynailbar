@@ -16,6 +16,23 @@
 @media(max-width:600px){.month-tabs button{font-size:18px;padding:13px 7px}.calendar-grid{gap:3px}.calendar-grid button{height:52px}.calendar-grid button strong{font-size:19px}.calendar-grid button small{font-size:5px}.calendar-weekdays span{font-size:7px}}
 .calendar-grid button.full,.calendar-grid button.full:hover{position:relative;background:#e7ded8;color:#9a8b81;box-shadow:inset 0 0 0 1px #d7c9bf;cursor:not-allowed;transform:none;opacity:.8}.calendar-grid button.full:after{content:"";position:absolute;left:18%;right:18%;top:50%;height:1px;background:#aa8171;transform:rotate(-22deg)}.calendar-grid button.full small{position:relative;z-index:1;color:#9b4f49;font-weight:700;letter-spacing:.13em}.calendar-full-notice{margin:13px 0 0;padding:12px 15px;border-left:3px solid #9b4f49;background:#f5e5e1;color:#7f423e;font-size:10px;line-height:1.5}
 .slot-group button.blocked,.slot-group button.blocked:hover{background:#eee8e4;color:#9b8e85;cursor:not-allowed;transform:none;opacity:.58;display:grid;place-content:center;gap:3px}.slot-group button.blocked span{font:15px 'Bodoni Moda';text-decoration:none}.slot-group button.blocked small{font:600 8px Manrope;letter-spacing:.07em;color:#806f65;text-decoration:none}
+
+@media(max-width:650px){
+  .slot-group button{
+    -webkit-appearance:none;
+    appearance:none;
+    color:#5a483b!important;
+    -webkit-text-fill-color:#5a483b!important;
+  }
+  .slot-group button.selected{
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+  }
+  .slot-group button.blocked{
+    color:#9b8e85!important;
+    -webkit-text-fill-color:#9b8e85!important;
+  }
+}
 .service-options small{font-size:10px;line-height:1.45;letter-spacing:.02em}.service-options label.selected small{color:#dac8b9}
 @media(max-width:650px){.service-options small{font-size:9px}}
 .service-options label{min-height:82px;padding:14px 15px;align-items:center}.service-options h3{font-size:19px;line-height:1.15;margin:0 0 8px}.service-options label>span{align-self:flex-start;margin-top:3px}.service-options label>b{align-self:center}

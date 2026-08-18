@@ -99,4 +99,10 @@ html,body{max-width:100%;overflow-x:clip}
     color:#9b8e85;
     -webkit-text-fill-color:#9b8e85;
   }
+
+  a[x-apple-data-detectors]{
+    color:inherit!important;
+    text-decoration:none!important;
+    -webkit-text-fill-color:inherit!important;
+  }
 }
