@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { isAdmin } from '@/lib/admin';
 import { durationForServices, hasWorkerCapacity } from '@/lib/booking-capacity';
-import { sendBookingNotification, sendCustomerBookingReceipt } from '@/lib/booking-notification';
+import { sendBookingNotification, sendCustomerBookingConfirmation, sendCustomerBookingReceipt } from '@/lib/booking-notification';
 import { readBookings, StoredBooking, writeBookings } from '@/lib/bookings-store';
 
 const availabilityFile = path.join(process.cwd(), 'data', 'availability.json');
@@ -73,6 +73,15 @@ export async function PATCH(request: Request) {
   const items = await readBookings();
   const item = items.find((entry: {id:string}) => entry.id === id);
   if (!item) return NextResponse.json({ error: 'Randevu bulunamadı.' }, { status: 404 });
+  const previousStatus = item.status;
+  if (status === 'confirmed' && previousStatus !== 'confirmed' && item.email) {
+    try {
+      await sendCustomerBookingConfirmation(item);
+    } catch (error) {
+      console.error('Customer booking confirmation error', error);
+      return NextResponse.json({ error: 'Müşteriye e-posta gönderilemediği için randevu onaylanamadı.' }, { status: 502 });
+    }
+  }
   item.status = status;
   await writeBookings(items as StoredBooking[]);
   return NextResponse.json(item);
