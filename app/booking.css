@@ -64,3 +64,28 @@
 
 /* The final half-hour slot in each period fills its own complete row. */
 .slot-group>div>button:last-child{grid-column:1/-1}
+
+/* Make it immediately clear that choosing an archive design is optional. */
+.design-code-stage .stage-title h2:after{
+  content:"İSTEĞE BAĞLI";
+  display:inline-flex;
+  align-items:center;
+  min-height:22px;
+  margin-left:12px;
+  padding:3px 9px;
+  border:1px solid #cba98d;
+  border-radius:999px;
+  color:#8b6243;
+  font:600 7px Manrope;
+  letter-spacing:.12em;
+  vertical-align:middle;
+}
+
+@media(max-width:650px){
+  .design-code-stage .stage-title h2:after{
+    min-height:20px;
+    margin-left:7px;
+    padding:2px 7px;
+    font-size:6px;
+  }
+}
