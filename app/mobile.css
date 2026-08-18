@@ -71,3 +71,32 @@ html,body{max-width:100%;overflow-x:clip}
   @keyframes route-soft-arrive{from{opacity:.18;transform:translateY(4px)}to{opacity:1;transform:none}}
 }
 @media(prefers-reduced-motion:reduce){.route-content{animation:none!important}}
+
+/* Keep codes and appointment times in the brand palette on mobile browsers. */
+@media(max-width:850px){
+  .design-grid button b,
+  .design-picker-grid button b,
+  .design-dialog section > strong,
+  .booking-design-preview span{
+    color:#7a5733;
+    -webkit-text-fill-color:#7a5733;
+  }
+
+  .slot-group button,
+  .slot-group button span{
+    color:#5a483b;
+    -webkit-text-fill-color:#5a483b;
+  }
+
+  .slot-group button.selected,
+  .slot-group button.selected span{
+    color:#fff;
+    -webkit-text-fill-color:#fff;
+  }
+
+  .slot-group button.blocked,
+  .slot-group button.blocked span{
+    color:#9b8e85;
+    -webkit-text-fill-color:#9b8e85;
+  }
+}
