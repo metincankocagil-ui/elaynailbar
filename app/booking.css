@@ -57,3 +57,7 @@
 @media(max-width:360px){.design-picker-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px}.design-picker-grid>button>span{padding:6px 4px}.design-picker-grid small{font-size:9px}}
 .detail-fields label>small{font-size:7px;letter-spacing:.08em;color:#a28b79}
 .booking-whatsapp{margin-top:20px;padding:16px 18px;border:1px solid #b9c9af;background:#eef3e9;display:flex;align-items:center;gap:14px;transition:transform .25s ease,background .25s ease,border-color .25s ease}.booking-whatsapp>span{width:37px;height:37px;flex:none;border-radius:50%;display:grid;place-items:center;background:#526847;color:white;font-size:18px}.booking-whatsapp>div{display:grid;gap:4px}.booking-whatsapp b{font:500 18px 'Bodoni Moda'}.booking-whatsapp small{font-size:9px;color:#6d7d64}.booking-whatsapp>i{margin-left:auto;font-style:normal;font-size:7px;letter-spacing:.12em;color:#526847}.booking-whatsapp:hover{transform:translateY(-2px);background:#e1ecd9;border-color:#839c75}@media(max-width:560px){.booking-whatsapp{padding:14px 13px;gap:10px}.booking-whatsapp>span{width:34px;height:34px}.booking-whatsapp b{font-size:17px}.booking-whatsapp small{font-size:8px;line-height:1.4}.booking-whatsapp>i{font-size:0}.booking-whatsapp>i:after{content:'↗';font-size:13px}}
+
+@media(min-width:851px){
+  .service-options{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
