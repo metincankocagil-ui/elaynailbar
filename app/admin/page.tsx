@@ -4,14 +4,14 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { nailDesigns } from '../nail-designs';
 
 type Review = { id:string; name:string; text:string; service:string; rating:number; status?:string; createdAt?:string };
-type Booking = { id:string; name:string; phone:string; service:string; date:string; time:string; note:string; designCode?:string; designColor?:string; status:string; createdAt:string };
+type Booking = { id:string; name:string; phone:string; email?:string; service:string; date:string; time:string; note:string; designCode?:string; designColor?:string; status:string; createdAt:string };
 type BookingStatus = 'new'|'confirmed'|'completed'|'cancelled';
 type Availability = {closedDates:string[];blockedSlots:Record<string,string[]>};
 type Confirmation = {title:string;description:string;confirmLabel:string;tone?:'danger'|'default';action:()=>Promise<void>};
 
 const months = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const weekdays = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
-const slots = ['09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
+const slots = ['09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
 const statusText:Record<string,string> = { new:'Yeni talep', confirmed:'Onaylandı', completed:'Tamamlandı', cancelled:'İptal edildi' };
 
 const dateKey = (date:Date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
@@ -97,11 +97,11 @@ function BookingCard({booking,compact=false,onStatus}:{booking:Booking;compact?:
   const design=nailDesigns.find(item=>item.code===booking.designCode?.toUpperCase());
   if(compact)return <details className="agenda-item">
     <summary><time>{booking.time}</time><div><small>{booking.service}</small><strong>{booking.name}</strong></div><i className={booking.status}>{statusText[booking.status]}</i><b aria-hidden="true">⌄</b></summary>
-    <div className="agenda-details"><div className="agenda-contact"><a href={`tel:${booking.phone.replace(/\s/g,'')}`}>{booking.phone}</a>{booking.note&&<p>“{booking.note}”</p>}</div>{booking.designCode&&<div className="agenda-design">{design&&<img src={design.photo} alt={design.name}/>}<div><span>SEÇİLEN TASARIM</span><strong>{booking.designCode}</strong>{design&&<small>{design.name}</small>}</div></div>}<StatusControl booking={booking} onStatus={onStatus}/></div>
+    <div className="agenda-details"><div className="agenda-contact"><a href={`tel:${booking.phone.replace(/\s/g,'')}`}>{booking.phone}</a>{booking.email&&<a href={`mailto:${booking.email}`}>{booking.email}</a>}{booking.note&&<p>“{booking.note}”</p>}</div>{booking.designCode&&<div className="agenda-design">{design&&<img src={design.photo} alt={design.name}/>}<div><span>SEÇİLEN TASARIM</span><strong>{booking.designCode}</strong>{design&&<small>{design.name}</small>}</div></div>}<StatusControl booking={booking} onStatus={onStatus}/></div>
   </details>;
   return <article className={`booking-card ${compact?'compact':''}`}>
     <div className="booking-time"><strong>{booking.time}</strong>{!compact&&<span>{prettyDate(booking.date)}</span>}<i className={booking.status}>{statusText[booking.status]}</i></div>
-    <div className="booking-person"><small>{booking.service}</small><h3>{booking.name}</h3><a href={`tel:${booking.phone.replace(/\s/g,'')}`}>{booking.phone}</a>{booking.note&&<p>“{booking.note}”</p>}</div>
+    <div className="booking-person"><small>{booking.service}</small><h3>{booking.name}</h3><a href={`tel:${booking.phone.replace(/\s/g,'')}`}>{booking.phone}</a>{booking.email&&<a href={`mailto:${booking.email}`}>{booking.email}</a>}{booking.note&&<p>“{booking.note}”</p>}</div>
     {booking.designCode?<div className="booking-design">{design?<img src={design.photo} alt={`${design.code} ${design.name}`}/>:<div className="design-placeholder">◇</div>}<div><span>SEÇİLEN TASARIM</span><strong>{booking.designCode}</strong>{design&&<small>{design.name}</small>}</div></div>:<div className="booking-design no-design"><div><span>TASARIM</span><small>Model seçilmedi</small></div></div>}
     <StatusControl booking={booking} onStatus={onStatus}/>
   </article>

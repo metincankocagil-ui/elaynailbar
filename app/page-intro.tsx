@@ -10,12 +10,15 @@ export function PageIntro() {
   useEffect(() => {
     if (pathname.startsWith('/admin')) { setVisible(false); return; }
     document.documentElement.classList.add('intro-running');
-    const finish = window.setTimeout(() => {
+    const reveal = window.setTimeout(() => {
       document.documentElement.classList.remove('intro-running');
       document.documentElement.classList.add('intro-finished');
+    }, 1020);
+    const finish = window.setTimeout(() => {
       setVisible(false);
-    }, 1750);
+    }, 1850);
     return () => {
+      window.clearTimeout(reveal);
       window.clearTimeout(finish);
       document.documentElement.classList.remove('intro-running');
     };

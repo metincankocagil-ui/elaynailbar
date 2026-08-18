@@ -1,6 +1,6 @@
 export const SERVICE_MINUTES:Record<string,number>={
   'Protez Tırnak':90,'Kuru Manikür':60,'Kalıcı Oje':75,'Spa Pedikür':75,'Nail Art':30,
-  'Bakım & Güçlendirme':45,'İpek Kirpik':120,'Kaş Laminasyonu':60,'Cilt Bakımı':75
+  'Bakım & Güçlendirme':45,'İpek Kirpik':120,'Kaş Laminasyonu':60
 };
 
 export type BookingInterval={time:string;duration:number};
