@@ -14,7 +14,7 @@ export default function Contact() {
       <div className="social-block">
         <b>SOSYAL MEDYA</b>
         <div className="social-links">
-          <a href="https://www.instagram.com/elaynailbar" target="_blank" rel="noreferrer" aria-label="Elay Nail Bar Instagram hesabı"><span className="social-icon">◎</span><span><strong>Instagram</strong><small>@elaynailbar</small></span><i>↗</i></a>
+          <a href="https://www.instagram.com/elaynailbar_/" target="_blank" rel="noreferrer" aria-label="Elay Nail Bar Instagram hesabı"><span className="social-icon">◎</span><span><strong>Instagram</strong><small>@elaynailbar_</small></span><i>↗</i></a>
           <a href="https://www.tiktok.com/@elaynailbar" target="_blank" rel="noreferrer" aria-label="Elay Nail Bar TikTok hesabı"><span className="social-icon">♪</span><span><strong>TikTok</strong><small>@elaynailbar</small></span><i>↗</i></a>
           <div className="social-disabled" aria-disabled="true"><span className="social-icon">𝕏</span><span><strong>X</strong><small>@elaynailbar</small></span><i>YAKINDA</i></div>
         </div>
