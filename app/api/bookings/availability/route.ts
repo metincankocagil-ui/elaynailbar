@@ -3,7 +3,10 @@ import { durationForServices } from '@/lib/booking-capacity';
 import { readBookings } from '@/lib/bookings-store';
 import { readAvailability } from '@/lib/availability-store';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
+  const availability=await readAvailability().catch(()=>({closedDates:[],blockedSlots:{}}));
   try {
     const bookings = await readBookings();
     const counts:Record<string,number> = {};
@@ -18,9 +21,8 @@ export async function GET() {
         schedules[booking.date].push({time,duration:durationForServices(booking.service)});
       }
     }
-    const availability=await readAvailability();
     return NextResponse.json({capacity:8,workers:2,counts,slotCounts,schedules,...availability},{headers:{'Cache-Control':'no-store, max-age=0'}});
   } catch {
-    return NextResponse.json({capacity:8,workers:2,counts:{},slotCounts:{},schedules:{},closedDates:[],blockedSlots:{}},{headers:{'Cache-Control':'no-store, max-age=0'}});
+    return NextResponse.json({capacity:8,workers:2,counts:{},slotCounts:{},schedules:{},...availability},{headers:{'Cache-Control':'no-store, max-age=0'}});
   }
 }

@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { isAdmin } from '@/lib/admin';
 import { readAvailability, writeAvailability } from '@/lib/availability-store';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(){if(!await isAdmin())return NextResponse.json({error:'Yetkisiz.'},{status:401});return NextResponse.json(await readAvailability())}
 export async function PATCH(request:Request){
   if(!await isAdmin())return NextResponse.json({error:'Yetkisiz.'},{status:401});
