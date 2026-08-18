@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { durationForServices } from '@/lib/booking-capacity';
+import { readBookings } from '@/lib/bookings-store';
 
-const file = path.join(process.cwd(),'data','bookings.json');
 const availabilityFile = path.join(process.cwd(),'data','availability.json');
 
 export async function GET() {
   try {
-    const bookings = JSON.parse(await fs.readFile(file,'utf8')) as Array<{date:string;time:string;service:string;status:string}>;
+    const bookings = await readBookings();
     const counts:Record<string,number> = {};
     const slotCounts:Record<string,Record<string,number>> = {};
     const schedules:Record<string,Array<{time:string;duration:number}>> = {};

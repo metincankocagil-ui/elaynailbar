@@ -4,14 +4,13 @@ import path from 'path';
 import { isAdmin } from '@/lib/admin';
 import { durationForServices, hasWorkerCapacity } from '@/lib/booking-capacity';
 import { sendBookingNotification, sendCustomerBookingReceipt } from '@/lib/booking-notification';
+import { readBookings, StoredBooking, writeBookings } from '@/lib/bookings-store';
 
-const file = path.join(process.cwd(), 'data', 'bookings.json');
 const availabilityFile = path.join(process.cwd(), 'data', 'availability.json');
-const read = async () => JSON.parse(await fs.readFile(file, 'utf8'));
 
 export async function GET() {
   if (!await isAdmin()) return NextResponse.json({ error: 'Yetkisiz.' }, { status: 401 });
-  return NextResponse.json(await read());
+  return NextResponse.json(await readBookings());
 }
 
 export async function POST(request: Request) {
@@ -37,7 +36,7 @@ export async function POST(request: Request) {
     if (availability.closedDates?.includes(date) || availability.blockedSlots?.[date]?.includes(time)) {
       return NextResponse.json({ error: 'Seçtiğiniz tarih veya saat randevuya kapalıdır.' }, { status: 409 });
     }
-    const items = await read();
+    const items = await readBookings();
     const activeItems = items.filter((item: {date:string;status:string}) => item.date === date && item.status !== 'cancelled');
     if (activeItems.length >= 8) {
       return NextResponse.json({ error: 'Seçtiğiniz günün randevu kapasitesi dolmuştur. Lütfen başka bir gün seçin.' }, { status: 409 });
@@ -49,7 +48,7 @@ export async function POST(request: Request) {
 
     const booking = { id: crypto.randomUUID(), service, date, time, name, phone, email, note: note.slice(0,600), designCode, designColor, status: 'new', createdAt: new Date().toISOString() };
     items.unshift(booking);
-    await fs.writeFile(file, JSON.stringify(items, null, 2));
+    await writeBookings(items);
     try {
       const results = await Promise.allSettled([
         sendBookingNotification(booking),
@@ -71,10 +70,10 @@ export async function PATCH(request: Request) {
   if (!await isAdmin()) return NextResponse.json({ error: 'Yetkisiz.' }, { status: 401 });
   const { id, status } = await request.json();
   if (!['new','confirmed','completed','cancelled'].includes(status)) return NextResponse.json({ error: 'Geçersiz durum.' }, { status: 400 });
-  const items = await read();
+  const items = await readBookings();
   const item = items.find((entry: {id:string}) => entry.id === id);
   if (!item) return NextResponse.json({ error: 'Randevu bulunamadı.' }, { status: 404 });
   item.status = status;
-  await fs.writeFile(file, JSON.stringify(items, null, 2));
+  await writeBookings(items as StoredBooking[]);
   return NextResponse.json(item);
 }
