@@ -7,8 +7,7 @@ const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
 }[character] || character));
 
-const salonAddress = 'Tevfik Bey Mahallesi, Şehit Erol Olçok Cd. 21-23E, 34295 Küçükçekmece / İstanbul';
-const salonMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(salonAddress);
+const salonMapsUrl = 'https://maps.app.goo.gl/obLueTsnoeQAs3Xk8';
 const salonLocationHtml = '<div style="margin-top:24px;padding:20px;border:1px solid #dfcec0;background:#fffaf7"><small style="letter-spacing:1.5px;color:#9a704e">ELAY NAIL BAR · KONUM</small><p style="margin:10px 0 16px;line-height:1.6;font-size:13px;color:#655348">Tevfik Bey Mahallesi<br>Şehit Erol Olçok Cd. 21-23E<br>34295 Küçükçekmece / İstanbul</p><a href="' + salonMapsUrl + '" style="display:block;padding:14px;text-align:center;background:#765235;color:#fff;text-decoration:none;font-size:12px;letter-spacing:1px">YOL TARİFİ AL →</a></div>';
 
 export async function sendBookingNotification(booking: BookingNotification) {

@@ -1,6 +1,5 @@
-const address = 'Tevfik Bey, Şht. Erol Olçok Cd. 21-23E, 34295 Küçükçekmece/İstanbul';
-const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address);
-const embedUrl = 'https://www.google.com/maps?q=' + encodeURIComponent(address) + '&output=embed';
+const mapsUrl = 'https://maps.app.goo.gl/obLueTsnoeQAs3Xk8';
+const embedUrl = 'https://www.google.com/maps?q=41.01107,28.8073456&z=18&output=embed';
 
 export default function Contact() {
   return <div className="page contact">
