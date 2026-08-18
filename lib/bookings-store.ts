@@ -5,7 +5,7 @@ import path from 'path';
 export type StoredBooking = {
   id: string; service: string; date: string; time: string; name: string;
   phone: string; email?: string; note: string; designCode?: string;
-  designColor?: string; status: string; createdAt: string;
+  designColor?: string; status: string; createdAt: string; reminderSentAt?: string;
 };
 
 const localFile = path.join(process.cwd(), 'data', 'bookings.json');
