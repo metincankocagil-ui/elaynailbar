@@ -35,7 +35,17 @@ function translated(value:string, language:Language) {
 function applyLanguage(root:Node, language:Language) {
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
   const nodes:Node[]=[]; if(root.nodeType===Node.TEXT_NODE) nodes.push(root); while(walker.nextNode()) nodes.push(walker.currentNode);
-  nodes.forEach(node=>{const parent=node.parentElement;if(!parent||parent.closest('.admin-page,.admin-login,script,style'))return;const source=originalText.get(node)??node.nodeValue??'';if(!originalText.has(node))originalText.set(node,source);const next=translated(source,language);if(node.nodeValue!==next)node.nodeValue=next});
+  nodes.forEach(node=>{
+    const parent=node.parentElement;
+    if(!parent||parent.closest('.admin-page,.admin-login,script,style'))return;
+    const current=node.nodeValue??'';
+    const saved=originalText.get(node);
+    if(saved===undefined) originalText.set(node,current);
+    else if(language==='en'&&current!==translated(saved,'en')) originalText.set(node,current);
+    const source=originalText.get(node)??current;
+    const next=translated(source,language);
+    if(current!==next)node.nodeValue=next;
+  });
   const elements=(root instanceof Element?[root,...Array.from(root.querySelectorAll('*'))]:Array.from((root as Document).querySelectorAll?.('*')||[]));
   elements.forEach(element=>{if(element.closest('.admin-page,.admin-login'))return;const saved=originalAttrs.get(element)||new Map<string,string>();['placeholder','aria-label','title'].forEach(attr=>{const current=element.getAttribute(attr);if(current!==null&&!saved.has(attr))saved.set(attr,current);const source=saved.get(attr);if(source!==undefined){const next=translated(source,language);if(current!==next)element.setAttribute(attr,next)}});originalAttrs.set(element,saved)});
 }
@@ -43,7 +53,15 @@ function applyLanguage(root:Node, language:Language) {
 export function LanguageProvider({children}:{children:ReactNode}) {
   const [language,setLanguageState]=useState<Language>('tr');
   useEffect(()=>{const saved=localStorage.getItem('elay-language');if(saved==='en')setLanguageState('en')},[]);
-  useEffect(()=>{document.documentElement.lang=language;localStorage.setItem('elay-language',language);applyLanguage(document.body,language);const observer=new MutationObserver(items=>items.forEach(item=>{item.addedNodes.forEach(node=>applyLanguage(node,language));if(item.type==='characterData')applyLanguage(item.target,language)}));observer.observe(document.body,{subtree:true,childList:true,characterData:true});return()=>observer.disconnect()},[language]);
+  useEffect(()=>{
+    document.documentElement.lang=language;
+    localStorage.setItem('elay-language',language);
+    applyLanguage(document.body,language);
+    if(language==='tr') return;
+    const observer=new MutationObserver(items=>items.forEach(item=>{item.addedNodes.forEach(node=>applyLanguage(node,language));if(item.type==='characterData')applyLanguage(item.target,language)}));
+    observer.observe(document.body,{subtree:true,childList:true,characterData:true});
+    return()=>observer.disconnect();
+  },[language]);
   const value=useMemo(()=>({language,setLanguage:(next:Language)=>setLanguageState(next)}),[language]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
