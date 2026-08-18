@@ -89,3 +89,57 @@
     font-size:6px;
   }
 }
+
+.detail-fields label.full{
+  position:relative;
+}
+
+.detail-fields label.full:not(:last-child)>small{
+  position:absolute;
+  top:-2px;
+  right:0;
+  padding:3px 8px;
+  border:1px solid #cba98d;
+  border-radius:999px;
+  color:#8b6243;
+  font-size:0;
+  letter-spacing:.11em;
+}
+
+.detail-fields label.full:not(:last-child)>small:after{
+  content:"İSTEĞE BAĞLI";
+  font:600 6px Manrope;
+}
+
+.detail-fields label.full:not(:last-child):after{
+  content:"Randevu talebi ve durum bilgilendirme e-postaları için kullanılır.";
+  color:#927c6b;
+  font:500 7px Manrope;
+  letter-spacing:.04em;
+  line-height:1.5;
+}
+
+.detail-fields label.full:last-child:before{
+  content:"İSTEĞE BAĞLI";
+  position:absolute;
+  top:-2px;
+  right:0;
+  padding:3px 8px;
+  border:1px solid #cba98d;
+  border-radius:999px;
+  color:#8b6243;
+  font:600 6px Manrope;
+  letter-spacing:.11em;
+}
+
+.detail-fields label.full:not(:last-child)>small,
+.detail-fields label.full:last-child:before{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  top:-3px;
+  width:88px;
+  height:16px;
+  padding:0;
+  box-sizing:border-box;
+}

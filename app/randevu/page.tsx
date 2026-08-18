@@ -42,7 +42,18 @@ export default function Booking() {
   const dateValue = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
   const selectedDayFull=(dailyCounts[dateValue]||0)>=8||closedDates.includes(dateValue);
 
-  function toggleService(name: string) { setSelectedNames(current => current.includes(name) ? current.filter(item => item !== name) : [...current, name]); }
+  function toggleService(name: string) {
+    setSelectedNames(current => {
+      if (name === 'Nail Art') {
+        if (current.includes(name)) return current.filter(item => item !== name);
+        return [...new Set([...current, 'Protez Tırnak', 'Nail Art'])];
+      }
+      if (name === 'Protez Tırnak' && current.includes(name)) {
+        return current.filter(item => item !== 'Protez Tırnak' && item !== 'Nail Art');
+      }
+      return current.includes(name) ? current.filter(item => item !== name) : [...current, name];
+    });
+  }
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (selectedDayFull) { setError('Seçtiğiniz gün randevuya kapalı. Lütfen başka bir gün seçin.'); return; }
