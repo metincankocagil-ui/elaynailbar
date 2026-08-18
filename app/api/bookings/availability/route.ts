@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { durationForServices } from '@/lib/booking-capacity';
 import { readBookings } from '@/lib/bookings-store';
-
-const availabilityFile = path.join(process.cwd(),'data','availability.json');
+import { readAvailability } from '@/lib/availability-store';
 
 export async function GET() {
   try {
@@ -21,7 +18,7 @@ export async function GET() {
         schedules[booking.date].push({time,duration:durationForServices(booking.service)});
       }
     }
-    const availability=JSON.parse(await fs.readFile(availabilityFile,'utf8').catch(()=>'{"closedDates":[],"blockedSlots":{}}'));
+    const availability=await readAvailability();
     return NextResponse.json({capacity:8,workers:2,counts,slotCounts,schedules,...availability},{headers:{'Cache-Control':'no-store, max-age=0'}});
   } catch {
     return NextResponse.json({capacity:8,workers:2,counts:{},slotCounts:{},schedules:{},closedDates:[],blockedSlots:{}},{headers:{'Cache-Control':'no-store, max-age=0'}});

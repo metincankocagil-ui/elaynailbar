@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
 import { isAdmin } from '@/lib/admin';
+import { readAvailability } from '@/lib/availability-store';
 import { durationForServices, hasWorkerCapacity } from '@/lib/booking-capacity';
 import { sendBookingNotification, sendCustomerBookingCancellation, sendCustomerBookingCompletion, sendCustomerBookingConfirmation, sendCustomerBookingReceipt } from '@/lib/booking-notification';
 import { readBookings, StoredBooking, writeBookings } from '@/lib/bookings-store';
-
-const availabilityFile = path.join(process.cwd(), 'data', 'availability.json');
 
 export async function GET() {
   if (!await isAdmin()) return NextResponse.json({ error: 'Yetkisiz.' }, { status: 401 });
@@ -32,7 +29,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Lütfen geçerli bir e-posta adresi girin.' }, { status: 400 });
     }
 
-    const availability = JSON.parse(await fs.readFile(availabilityFile, 'utf8').catch(() => '{"closedDates":[],"blockedSlots":{}}'));
+    const availability = await readAvailability();
     if (availability.closedDates?.includes(date) || availability.blockedSlots?.[date]?.includes(time)) {
       return NextResponse.json({ error: 'Seçtiğiniz tarih veya saat randevuya kapalıdır.' }, { status: 409 });
     }
