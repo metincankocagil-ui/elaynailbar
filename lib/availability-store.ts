@@ -1,17 +1,9 @@
-import { getStore } from '@netlify/blobs';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { supabaseRequest } from './supabase';
 
 export type Availability = {
   closedDates: string[];
   blockedSlots: Record<string, string[]>;
 };
-
-const localFile = path.join(process.cwd(), 'data', 'availability.json');
-
-function usesNetlifyStorage() {
-  return process.env.NETLIFY === 'true' || Boolean(process.env.SITE_ID || process.env.NETLIFY_BLOBS_CONTEXT);
-}
 
 function normalize(value: unknown): Availability {
   if (!value || typeof value !== 'object') return { closedDates: [], blockedSlots: {} };
@@ -23,19 +15,14 @@ function normalize(value: unknown): Availability {
 }
 
 export async function readAvailability(): Promise<Availability> {
-  if (usesNetlifyStorage()) {
-    const value = await getStore('elay-availability').get('settings', { type: 'json', consistency: 'strong' });
-    return normalize(value);
-  }
-  const value = JSON.parse(await fs.readFile(localFile, 'utf8').catch(() => 'null'));
-  return normalize(value);
+  const rows = await supabaseRequest<Array<{settings: unknown}>>('availability?id=eq.default&select=settings');
+  return normalize(rows[0]?.settings);
 }
 
 export async function writeAvailability(availability: Availability) {
   const normalized = normalize(availability);
-  if (usesNetlifyStorage()) {
-    await getStore('elay-availability').setJSON('settings', normalized);
-    return;
-  }
-  await fs.writeFile(localFile, JSON.stringify(normalized, null, 2), 'utf8');
+  await supabaseRequest('availability', {
+    method: 'POST', body: { id: 'default', settings: normalized },
+    prefer: 'resolution=merge-duplicates,return=minimal',
+  });
 }

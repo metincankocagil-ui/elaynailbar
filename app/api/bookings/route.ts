@@ -3,7 +3,7 @@ import { isAdmin } from '@/lib/admin';
 import { readAvailability } from '@/lib/availability-store';
 import { durationForServices, hasWorkerCapacity } from '@/lib/booking-capacity';
 import { sendBookingNotification, sendCustomerBookingCancellation, sendCustomerBookingCompletion, sendCustomerBookingConfirmation, sendCustomerBookingReceipt } from '@/lib/booking-notification';
-import { readBookings, StoredBooking, writeBookings } from '@/lib/bookings-store';
+import { createBooking, readBookings, updateBookingStatus } from '@/lib/bookings-store';
 
 export async function GET() {
   if (!await isAdmin()) return NextResponse.json({ error: 'Yetkisiz.' }, { status: 401 });
@@ -44,8 +44,7 @@ export async function POST(request: Request) {
     }
 
     const booking = { id: crypto.randomUUID(), service, date, time, name, phone, email, note: note.slice(0,600), designCode, designColor, status: 'new', createdAt: new Date().toISOString() };
-    items.unshift(booking);
-    await writeBookings(items);
+    await createBooking(booking);
     try {
       const results = await Promise.allSettled([
         sendBookingNotification(booking),
@@ -85,7 +84,6 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: 'Müşteriye e-posta gönderilemediği için randevu durumu değiştirilemedi.' }, { status: 502 });
     }
   }
-  item.status = status;
-  await writeBookings(items as StoredBooking[]);
-  return NextResponse.json(item);
+  const updated = await updateBookingStatus(id, status);
+  return NextResponse.json(updated);
 }
